@@ -11,5 +11,6 @@ public class RequestURLType {
     public static String GET_RESOURCE_NOTFOUND = "api/unknown/23";
 
     public static String POST_LOGIN = "api/login";
+    public static String POST_REGISTER = "api/register";
 
 }

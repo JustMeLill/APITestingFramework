@@ -3,6 +3,10 @@ package ResponseObject;
 import RequestObject.RequestHelper;
 import ResponseObject.ResponseLogin.ResponseLoginFailed;
 import ResponseObject.ResponseLogin.ResponseLoginSuccess;
+import ResponseObject.ResponseRegister.ResponseRegisterFailed;
+import ResponseObject.ResponseRegister.ResponseRegisterSuccess;
+import ResponseObject.ResponseResource.ResponseResourceSuccess;
+import ResponseObject.ResponseResources.ResponseResourcesSuccess;
 import io.restassured.response.Response;
 import io.restassured.response.ResponseBody;
 import org.testng.Assert;
@@ -35,7 +39,44 @@ public class ResponseHelper {
                     break;
             }
         }
+
+        if(ResponseType.equals(ResponseBodyType.RESPONSE_REGISTER)){
+            switch (ResponseCode){
+                case 200:
+                    ResponseRegisterSuccess responseRegisterSuccess = response.getBody().as(ResponseRegisterSuccess.class);
+                    responseRegisterSuccess.ValidateResponse();
+                    break;
+                case 400:
+                    ResponseRegisterFailed responseRegisterFailed = response.getBody().as(ResponseRegisterFailed.class);
+                    responseRegisterFailed.ValidateResponse();
+                    break;
+            }
+        }
+
+        if(ResponseType.equals(ResponseBodyType.RESPONSE_RESOURCES)){
+            switch (ResponseCode){
+                case 200:
+                    ResponseResourcesSuccess responseResourcesSuccess = response.getBody().as(ResponseResourcesSuccess.class);
+                    responseResourcesSuccess.ValidateResponse();
+                    break;
+        }
+
+        if(ResponseType.equals(ResponseBodyType.RESPONSE_RESOURCE)) {
+            switch (ResponseCode) {
+                case 200:
+                    ResponseResourceSuccess responseResourceSuccess = response.getBody().as(ResponseResourceSuccess.class);
+                    responseResourceSuccess.ValidateResponse();
+                    break;
+                case 400:
+                    Assert.assertNotNull(response);
+                    break;
+            }
+        }
+
+        }
     }
+
+
 
     public void printResponseBody(){
         ResponseBody Body = response.getBody();
