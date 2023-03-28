@@ -9,6 +9,7 @@ import ResponseObject.ResponseResource.ResponseResourceSuccess;
 import ResponseObject.ResponseResources.ResponseResourcesSuccess;
 import ResponseObject.ResponseUser.ResponsePostUser;
 import ResponseObject.ResponseUser.ResponsePutPatchUser;
+import ResponseObject.ResponseUsers.ResponseUsersSuccess;
 import io.restassured.response.Response;
 import io.restassured.response.ResponseBody;
 import org.testng.Assert;
@@ -91,6 +92,18 @@ public class ResponseHelper {
 
                 }
 
+            }
+
+            if (ResponseType.equals(ResponseBodyType.RESPONSE_USERS)){
+                switch (ResponseCode){
+                    case 200:
+                        ResponseUsersSuccess responseUsersSuccess = response.getBody().as(ResponseUsersSuccess.class);
+                        responseUsersSuccess.ValidateResponse();
+                        break;
+                    case 404:
+                        Assert.assertNotNull(response.getBody());
+                        break;
+                }
             }
 
         }
