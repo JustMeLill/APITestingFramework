@@ -1,6 +1,5 @@
 package Tests;
 
-import RequestObject.RequestLogin.RequestLogin;
 import RequestObject.RequestMethodType;
 import RequestObject.RequestURLType;
 import RequestObject.RequestUser.RequestUser;
@@ -8,12 +7,7 @@ import ResponseObject.ResponseBodyType;
 import ResponseObject.ResponseCodeType;
 import ResponseObject.ResponseHelper;
 import SharedData.BaseTest;
-import io.restassured.RestAssured;
 import io.restassured.response.Response;
-import io.restassured.response.ResponseBody;
-import io.restassured.specification.RequestSpecification;
-import org.json.JSONObject;
-import org.testng.Assert;
 import org.testng.annotations.Test;
 
 public class UserRequestTest extends BaseTest {
@@ -27,7 +21,6 @@ public class UserRequestTest extends BaseTest {
         responseHelper = new ResponseHelper(response);
         responseHelper.validateResponse(ResponseBodyType.RESPONSE_USER, ResponseCodeType.STATUS_201);
         responseHelper.printResponseBody();
-
     }
 
     @Test (priority = 2)
@@ -49,7 +42,6 @@ public class UserRequestTest extends BaseTest {
         responseHelper = new ResponseHelper(response);
         responseHelper.validateResponse(ResponseBodyType.RESPONSE_USER, ResponseCodeType.STATUS_200);
         responseHelper.printResponseBody();
-
     }
 
     @Test (priority = 4)
@@ -60,7 +52,5 @@ public class UserRequestTest extends BaseTest {
         responseHelper = new ResponseHelper(response);
         responseHelper.validateResponse(ResponseBodyType.RESPONSE_USER, ResponseCodeType.STATUS_204);
         responseHelper.printResponseBody();
-
-
     }
 }
