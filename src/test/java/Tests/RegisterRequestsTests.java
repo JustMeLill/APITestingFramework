@@ -30,8 +30,9 @@ public class RegisterRequestsTests extends BaseTest {
         RequestRegister RequestFailed = new RequestRegister.RequestRegisterBuilder().Email("sydney@fife").build();
         Response response = requestHelper.performRequest(RequestMethodType.POST_METHOD, baseURL + RequestURLType.POST_REGISTER, RequestFailed);
 
+        String expectedError = "Missing password";
         responseHelper = new ResponseHelper(response);
-        responseHelper.validateResponse(ResponseBodyType.RESPONSE_REGISTER, ResponseCodeType.STATUS_400);
+        responseHelper.validateResponse(ResponseBodyType.RESPONSE_REGISTER, ResponseCodeType.STATUS_400, expectedError);
         responseHelper.printResponseBody();
 
 

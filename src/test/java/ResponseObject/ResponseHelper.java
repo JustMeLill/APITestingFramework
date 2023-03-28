@@ -27,19 +27,35 @@ public class ResponseHelper {
         Assert.assertEquals(response.getStatusCode(), expected);
     }
 
+    public void validateResponse(String ResponseType, Integer ResponseCode, String expected){
+        validateResponseCode(ResponseCode);
+        if (ResponseType.equals(ResponseBodyType.RESPONSE_LOGIN)) {
+            switch (ResponseCode) {
+                case 400:
+                    ResponseLoginFailed ResponseLoginFailed = response.getBody().as(ResponseLoginFailed.class);
+                    ResponseLoginFailed.ValidateResponse(expected);
+                    break;
+            }
+        }
+        if (ResponseType.equals(ResponseBodyType.RESPONSE_REGISTER)) {
+            switch (ResponseCode) {
+                case 400:
+                    ResponseRegisterFailed responseRegisterFailed = response.getBody().as(ResponseRegisterFailed.class);
+                    responseRegisterFailed.ValidateResponse(expected);
+                    break;
+            }
+        }
+    }
+
     public void validateResponse(String ResponseType, Integer ResponseCode) {
-        System.out.println(response.getStatusCode());
-        Assert.assertEquals(response.getStatusCode(), ResponseCode);
+        validateResponseCode(ResponseCode);
         if (ResponseType.equals(ResponseBodyType.RESPONSE_LOGIN)) {
             switch (ResponseCode) {
                 case 200:
                     ResponseLoginSuccess ResponseLoginSuccess = response.getBody().as(ResponseLoginSuccess.class);
                     ResponseLoginSuccess.ValidateResponse();
                     break;
-                case 400:
-                    ResponseLoginFailed ResponseLoginFailed = response.getBody().as(ResponseLoginFailed.class);
-                    ResponseLoginFailed.ValidateResponse();
-                    break;
+
             }
         }
 
@@ -49,10 +65,7 @@ public class ResponseHelper {
                     ResponseRegisterSuccess responseRegisterSuccess = response.getBody().as(ResponseRegisterSuccess.class);
                     responseRegisterSuccess.ValidateResponse();
                     break;
-                case 400:
-                    ResponseRegisterFailed responseRegisterFailed = response.getBody().as(ResponseRegisterFailed.class);
-                    responseRegisterFailed.ValidateResponse();
-                    break;
+
             }
         }
 
