@@ -30,6 +30,7 @@ public class UsersRequestsTests extends BaseTest {
 
         responseHelper = new ResponseHelper(response);
         responseHelper.validateResponseCode(ResponseCodeType.STATUS_200);
+        responseHelper.printResponseBody();
 
     }
 
